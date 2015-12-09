@@ -6,18 +6,14 @@
 #
 
 library(shiny)
+library(shinydashboard)
+library(dplyr)
+library(tidyr)
+library(shinyBS)
+library(leaflet)
 
 shinyServer(function(input, output) {
-
-  output$distPlot <- renderPlot({
-
-    # generate bins based on input$bins from ui.R
-    x    <- faithful[, 2]
-    bins <- seq(min(x), max(x), length.out = input$bins + 1)
-
-    # draw the histogram with the specified number of bins
-    hist(x, breaks = bins, col = 'darkgray', border = 'white')
-
+  output$map <- renderLeaflet({
+    leaflet() %>% addTiles() %>% setView(-93.65, 42.0285, zoom = 17)
   })
-
 })
